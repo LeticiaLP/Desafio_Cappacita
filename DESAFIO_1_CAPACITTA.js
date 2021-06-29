@@ -7,7 +7,7 @@ class Cliente {
 		this.genero = genero;
 		this.aquisicao = aquisicao;
 	}
-	
+	// função para retornar um objeto contendo dados gerais dos clientes
 	dadosClientes() {
 		let dados;
 		let data;   
@@ -34,9 +34,8 @@ class SeguroVida extends Cliente {
 		this.plano = plano;
 		this.carencia = carencia;
 	}
-	
+	// função para retornar um objeto contendo dados gerais dos clientes e dados referentes ao seguro de vida
 	dadosSeguro() {
-		
 		let seguro = super.dadosClientes();
 		
 		seguro.plano = this.plano;
@@ -44,64 +43,57 @@ class SeguroVida extends Cliente {
 				
 		return seguro;
 	}
-  
-  inserirDados() {
-    
-    this.nome = prompt('Primeiro nome:');
-    this.sobrenome = prompt('Sobrenome:');
-    this.idade = prompt('Idade (Apenas números):');
-    this.genero = prompt('Gênero (M = masculino | F = feminino):');
-    this.plano = prompt('Plano (Parcial | Total):');
-    this.carencia = prompt('Meses de carência (Apenas números):');  
-  }  
+	// função para digitar com o teclado os dados do seguro
+	inserirDados() {
+		this.nome = prompt('Primeiro nome:');
+		this.sobrenome = prompt('Sobrenome:');
+		this.idade = prompt('Idade (Apenas números):');
+		this.genero = prompt('Gênero (M = masculino | F = feminino):');
+		this.plano = prompt('Plano (Parcial | Total):');
+		this.carencia = prompt('Meses de carência (Apenas números):');  
+	}  
 }
-
+// função para cadastrar os clientes, inserindo os dados no array
 function cadastrarClientes() {
-		var quantidade;
-		var clientes;
-		var indice = 0;
-		var entrada;
-    var informacao;
+	let quantidade;
+	let clientes;
+	let indice = 0;
+	let entrada;
+	let informacao;
+	
+	let cadastro = new SeguroVida;
+ 
+	entrada = prompt('Quantos clientes deseja cadastrar?');
+
+	quantidade = parseInt(entrada);
+
+	clientes = new Array(quantidade);
+
+	while (indice < quantidade) {
+		cadastro.inserirDados();
+		informacao = cadastro.dadosSeguro();
 		
-		var cadastro = new SeguroVida;
-	  // permite digitar, usando o teclado, uma String
-		entrada = prompt('Quantos clientes deseja cadastrar?');
-		// transforma a string num múmero
-		quantidade = parseInt(entrada);
-
-		clientes = new Array(quantidade);
-
-		while (indice < quantidade) {
-			cadastro.inserirDados();
-      informacao = cadastro.dadosSeguro();
-			
-			clientes [indice] = informacao;
-			
-			indice++
-		}
+		clientes [indice] = informacao;
 		
-		return clientes;
-	}	
+		indice++
+	}
+	
+	return clientes;
+}	
 
-let cad = cadastrarClientes();
-
+var cad = cadastrarClientes();
+// função para limitar a faixa de idade dos segurados
 function limiteLista (limite) {
-  
    return limite.idade > 18 && limite.idade <= 26 
 }
-
+// função para filtrar a lista de segurados de acordo com a faixa de idade, retornando uma nova lista com a nova faixa de idade
 function novaLista(array) {
-
   let filtro = array.filter(limiteLista);
-
+  
   return filtro;
 }
 
 console.log(novaLista(cad));
 
 module.exports.retornaLista = novaLista(cad);
-
-
-
-
 
