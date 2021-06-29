@@ -96,4 +96,3 @@ function novaLista(array) {
 console.log(novaLista(cad));
 
 module.exports.retornaLista = novaLista(cad);
-
